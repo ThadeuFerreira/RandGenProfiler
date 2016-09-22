@@ -2,18 +2,17 @@ Flat profile:
 
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
- 37.14     15.69    15.69 1073741824     0.00     0.00  WELLRNG1024a()
- 37.05     31.35    15.65 1073741824     0.00     0.00  genrand_int32()
- 20.05     39.82     8.47 1073741824     0.00     0.00  WELLRNG512a()
-  2.73     40.97     1.15                             main
-  1.57     41.63     0.66 1073741824     0.00     0.00  Mersenne()
-  0.45     41.82     0.19        1   190.46   190.46  InitWELLRNG512a(unsigned int*)
-  0.40     41.99     0.17        1   170.41   170.41  InitWELLRNG1024a(unsigned int*)
-  0.39     42.16     0.17        1   165.40   165.40  init_by_array(unsigned long*, int)
-  0.00     42.16     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z12init_genrandm
-  0.00     42.16     0.00        1     0.00     0.00  init_genrand(unsigned long)
-  0.00     42.16     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+100.21      0.01     0.01   125000    80.16    80.16  box_muller(float, float)
+  0.00      0.01     0.00    79802     0.00     0.00  genrand_int32()
+  0.00      0.01     0.00    65586     0.00     0.00  WELLRNG1024a()
+  0.00      0.01     0.00    14216     0.00     0.00  WELLRNG512a()
+  0.00      0.01     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z12init_genrandm
+  0.00      0.01     0.00        1     0.00     0.00  init_genrand(unsigned long)
+  0.00      0.01     0.00        1     0.00     0.00  init_by_array(unsigned long*, int)
+  0.00      0.01     0.00        1     0.00     0.00  InitWELLRNG512a(unsigned int*)
+  0.00      0.01     0.00        1     0.00     0.00  InitWELLRNG1024a(unsigned int*)
+  0.00      0.01     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -51,49 +50,49 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 0.02% of 42.16 seconds
+granularity: each sample hit covers 2 byte(s) for 99.79% of 0.01 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0    1.15   41.00                 main [1]
-               15.69   15.65 1073741824/1073741824     WELLRNG1024a() [2]
-                8.47    0.00 1073741824/1073741824     WELLRNG512a() [4]
-                0.66    0.00 1073741824/1073741824     Mersenne() [5]
-                0.19    0.00       1/1           InitWELLRNG512a(unsigned int*) [6]
-                0.17    0.00       1/1           InitWELLRNG1024a(unsigned int*) [7]
-                0.17    0.00       1/1           init_by_array(unsigned long*, int) [8]
+[1]    100.0    0.00    0.01                 main [1]
+                0.01    0.00  125000/125000      box_muller(float, float) [2]
+                0.00    0.00       1/1           init_by_array(unsigned long*, int) [14]
+                0.00    0.00       1/1           InitWELLRNG1024a(unsigned int*) [16]
+                0.00    0.00       1/1           InitWELLRNG512a(unsigned int*) [15]
 -----------------------------------------------
-               15.69   15.65 1073741824/1073741824     main [1]
-[2]     74.4   15.69   15.65 1073741824         WELLRNG1024a() [2]
-               15.65    0.00 1073741824/1073741824     genrand_int32() [3]
+                0.01    0.00  125000/125000      main [1]
+[2]    100.0    0.01    0.00  125000         box_muller(float, float) [2]
+                0.00    0.00   79802/79802       genrand_int32() [9]
+                0.00    0.00   65586/65586       WELLRNG1024a() [10]
+                0.00    0.00   14216/14216       WELLRNG512a() [11]
 -----------------------------------------------
-               15.65    0.00 1073741824/1073741824     WELLRNG1024a() [2]
-[3]     37.1   15.65    0.00 1073741824         genrand_int32() [3]
+                0.00    0.00   79802/79802       box_muller(float, float) [2]
+[9]      0.0    0.00    0.00   79802         genrand_int32() [9]
 -----------------------------------------------
-                8.47    0.00 1073741824/1073741824     main [1]
-[4]     20.1    8.47    0.00 1073741824         WELLRNG512a() [4]
+                0.00    0.00   65586/65586       box_muller(float, float) [2]
+[10]     0.0    0.00    0.00   65586         WELLRNG1024a() [10]
 -----------------------------------------------
-                0.66    0.00 1073741824/1073741824     main [1]
-[5]      1.6    0.66    0.00 1073741824         Mersenne() [5]
------------------------------------------------
-                0.19    0.00       1/1           main [1]
-[6]      0.5    0.19    0.00       1         InitWELLRNG512a(unsigned int*) [6]
------------------------------------------------
-                0.17    0.00       1/1           main [1]
-[7]      0.4    0.17    0.00       1         InitWELLRNG1024a(unsigned int*) [7]
------------------------------------------------
-                0.17    0.00       1/1           main [1]
-[8]      0.4    0.17    0.00       1         init_by_array(unsigned long*, int) [8]
-                0.00    0.00       1/1           init_genrand(unsigned long) [16]
+                0.00    0.00   14216/14216       box_muller(float, float) [2]
+[11]     0.0    0.00    0.00   14216         WELLRNG512a() [11]
 -----------------------------------------------
                 0.00    0.00       1/1           __libc_csu_init [28]
-[15]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z12init_genrandm [15]
+[12]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z12init_genrandm [12]
                 0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [17]
 -----------------------------------------------
-                0.00    0.00       1/1           init_by_array(unsigned long*, int) [8]
-[16]     0.0    0.00    0.00       1         init_genrand(unsigned long) [16]
+                0.00    0.00       1/1           init_by_array(unsigned long*, int) [14]
+[13]     0.0    0.00    0.00       1         init_genrand(unsigned long) [13]
 -----------------------------------------------
-                0.00    0.00       1/1           _GLOBAL__sub_I__Z12init_genrandm [15]
+                0.00    0.00       1/1           main [1]
+[14]     0.0    0.00    0.00       1         init_by_array(unsigned long*, int) [14]
+                0.00    0.00       1/1           init_genrand(unsigned long) [13]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[15]     0.0    0.00    0.00       1         InitWELLRNG512a(unsigned int*) [15]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[16]     0.0    0.00    0.00       1         InitWELLRNG1024a(unsigned int*) [16]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z12init_genrandm [12]
 [17]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [17]
 -----------------------------------------------
 
@@ -187,7 +186,7 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [15] _GLOBAL__sub_I__Z12init_genrandm [3] genrand_int32() [17] __static_initialization_and_destruction_0(int, int)
-   [4] WELLRNG512a()           [8] init_by_array(unsigned long*, int) [5] Mersenne()
-   [2] WELLRNG1024a()          [6] InitWELLRNG512a(unsigned int*) [1] main
-  [16] init_genrand(unsigned long) [7] InitWELLRNG1024a(unsigned int*)
+  [12] _GLOBAL__sub_I__Z12init_genrandm [13] init_genrand(unsigned long) [16] InitWELLRNG1024a(unsigned int*)
+   [2] box_muller(float, float) [9] genrand_int32()       [17] __static_initialization_and_destruction_0(int, int)
+  [11] WELLRNG512a()          [14] init_by_array(unsigned long*, int)
+  [10] WELLRNG1024a()         [15] InitWELLRNG512a(unsigned int*)

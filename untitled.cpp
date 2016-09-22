@@ -60,13 +60,56 @@
 #include "wellRNG512.c"
 #include "wellRNG1024a.c"
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
-unsigned long Mersenne(){
 
-      return genrand_int32();
 
+
+       
+
+
+float box_muller( float m, float s)  /* normal random variate generator */
+{               /* mean m, standard deviation s */
+  float x1, x2, w, y1;
+  static float y2;
+  static int use_last = 0;
+
+  if (use_last)           /* use value from previous call */
+  {
+    y1 = y2;
+    use_last = 0;
+  }
+  else
+  {
+    int i = 0;
+    do {
+      float U1;
+      float U2;
+      if(i % 2){
+         U1= genrand_int32()*FACTX;
+         U2 = WELLRNG512a()*FACTX;
+      }
+      else{
+        U1 = genrand_int32()*FACTX;
+        U2 = WELLRNG1024a()*FACTX;
+      }
+      i++;
+      
+      x1 = 2.0 * U1 - 1.0;
+      x2 = 2.0 * U2 - 1.0;
+      w = x1 * x1 + x2 * x2;
+      //cout << U1 << " - " << U2 << " - " << w << endl;
+    } while ( w >= 1.0 );
+
+    w = sqrt( (-2.0 * log( w ) ) / w );
+    y1 = x1 * w;
+    y2 = x2 * w;
+    use_last = 1;
+  }
+
+  return( m + y1 * s );
 }
 
 int main(void)
@@ -77,8 +120,8 @@ int main(void)
     unsigned int v = 123;
     InitWELLRNG512a(&v);
     InitWELLRNG1024a(&v);
-    printf("1000 outputs of genrand64_int64()\n");
-    int count = 512;
+    //printf("1000 outputs of genrand64_int64()\n");
+    int count = 50;
     for (i=0; i<count; i++) {
       //cout << Mersenne() << endl;
       //cout << WELLRNG512a() << endl;
@@ -87,9 +130,10 @@ int main(void)
       {
         for (int k = 0; k < count; ++k)
         {
-                Mersenne();
-                WELLRNG512a();
-                WELLRNG1024a();
+                //box_muller(Mersenne()*FACTX,WELLRNG512a()*FACTX, 10, 2 );
+               // box_muller(WELLRNG1024a()*FACTX, WELLRNG512a()*FACTX, 10, 2 );
+          cout << box_muller(10,2) << endl;
+                
         }
         /* code */
       }
@@ -97,7 +141,7 @@ int main(void)
     }
 
 
-    cout << "Finish3" << endl;
+    //cout << "Finish3" << endl;
     return 0;
 }
 
