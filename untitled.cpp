@@ -62,13 +62,17 @@
 #include <iostream>
 #include <math.h>
 
-using namespace std;
+using namespace std;       
 
+int GlobalCount = 0;
 
+float _log(float w){
+  return log(w);
+}
 
-
-       
-
+float _sqrt(float w){
+  return sqrt(w);
+}
 
 float box_muller( float m, float s)  /* normal random variate generator */
 {               /* mean m, standard deviation s */
@@ -83,11 +87,10 @@ float box_muller( float m, float s)  /* normal random variate generator */
   }
   else
   {
-    int i = 0;
     do {
       float U1;
       float U2;
-      if(i % 2){
+      if(GlobalCount % 2){
          U1= genrand_int32()*FACTX;
          U2 = WELLRNG512a()*FACTX;
       }
@@ -95,7 +98,7 @@ float box_muller( float m, float s)  /* normal random variate generator */
         U1 = genrand_int32()*FACTX;
         U2 = WELLRNG1024a()*FACTX;
       }
-      i++;
+      GlobalCount++;
       
       x1 = 2.0 * U1 - 1.0;
       x2 = 2.0 * U2 - 1.0;
@@ -103,7 +106,7 @@ float box_muller( float m, float s)  /* normal random variate generator */
       //cout << U1 << " - " << U2 << " - " << w << endl;
     } while ( w >= 1.0 );
 
-    w = sqrt( (-2.0 * log( w ) ) / w );
+    w = _sqrt( (-2.0 * _log( w ) ) / w );
     y1 = x1 * w;
     y2 = x2 * w;
     use_last = 1;
@@ -121,7 +124,7 @@ int main(void)
     InitWELLRNG512a(&v);
     InitWELLRNG1024a(&v);
     //printf("1000 outputs of genrand64_int64()\n");
-    int count = 50;
+    int count = 1024;
     for (i=0; i<count; i++) {
       //cout << Mersenne() << endl;
       //cout << WELLRNG512a() << endl;
@@ -130,9 +133,9 @@ int main(void)
       {
         for (int k = 0; k < count; ++k)
         {
-                //box_muller(Mersenne()*FACTX,WELLRNG512a()*FACTX, 10, 2 );
-               // box_muller(WELLRNG1024a()*FACTX, WELLRNG512a()*FACTX, 10, 2 );
-          cout << box_muller(10,2) << endl;
+
+          //cout << box_muller(10,2) << endl;
+           box_muller(10,2);
                 
         }
         /* code */
