@@ -33,7 +33,7 @@ static unsigned int z0X, z1X, z2X;
 void InitWELLRNG1024a (unsigned int *init){
    int j;
    STATEX_i = 0;
-   for (j = 0; j < R; j++)
+   for (j = 0; j < RX; j++)
      STATEX[j] = init[j];
 }
 
@@ -42,7 +42,7 @@ unsigned long WELLRNG1024a (void){
   z1X    = IdentityX(V0X)       ^ MAT0POSX (8, VM1X);
   z2X    = MAT0NEGX (-19, VM2X) ^ MAT0NEGX(-14,VM3X);
   newV1X = z1X                 ^ z2X; 
-  newV0X = MAT0NEGX (-11,z0X)   ^ MAT0NEGX(-7,z1)    ^ MAT0NEGX(-13,z2X) ;
+  newV0X = MAT0NEGX (-11,z0X)   ^ MAT0NEGX(-7,z1X)    ^ MAT0NEGX(-13,z2X) ;
   STATEX_i = (STATEX_i + 31) & 0x0000001fU;
  // return ((double) STATEX[STATEX_i]  * FACTX);
   return STATEX[STATEX_i] ;
